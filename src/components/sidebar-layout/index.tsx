@@ -23,7 +23,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
       <div className="min-w-full min-h-[100vh] relative">
         <PromotionBanner />
         <div
-          className={`min-h-[var(--navbar-height)] sticky border top-0 flex flex-row justify-center gap-4 items-center bg-white px-10 py-3`}
+          className={`min-h-[var(--navbar-height)] sticky backdrop-blur-sm z-10 border top-0 flex flex-row justify-center gap-4 items-center bg-white/60 px-10 py-3`}
         >
           <div className="absolute left-20 flex gap-2 items-center justify-start">
             <Logo type="black" size={40} />
