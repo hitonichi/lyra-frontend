@@ -9,35 +9,31 @@ import STRINGS from '@/lib/strings';
 import NavMenu from '../nav-menu';
 import PageTitle from './pageTitle';
 import { Footer } from './footer';
-import { ChatBox } from '../chatbox';
+import ProductSearch from './productSearch';
 
 const S = STRINGS.homepage;
 
 export default async function SideBarLayout({ children }: { children?: ReactNode }) {
   const session = await auth();
-  // console.log('Current session', session);
 
   if (!session) {
     return (
       <div className="min-w-full min-h-[100vh] relative">
         <div
-          className={`min-h-[var(--navbar-height)] sticky top-0 flex flex-row justify-center gap-4 items-center bg-white px-4 py-3`}
+          className={`min-h-[var(--navbar-height)] sticky border top-0 flex flex-row justify-center gap-4 items-center bg-white px-10 py-3`}
         >
-          <div className="absolute left-4 flex gap-2 items-center justify-start">
-            <Logo type="black" size={48} />
-            <p className="text-primary text-2xl font-medium ">{S.title}</p>
+          <div className="absolute left-20 flex gap-2 items-center justify-start">
+            <Logo type="black" size={40} />
+            <p className="mr-10 text-black text-2xl font-bold ">{S.title}</p>
+            <NavMenu />
           </div>
 
-          <Link className="absolute right-4" href={'/login'}>
-            <Button>{S.nav.login}</Button>
-          </Link>
-          {/* <Link href={'/'}>
-            <Button variant={'ghost'}>{S.nav.home}</Button>
-          </Link>
-          <Link href={'/about'}>
-            <Button variant={'ghost'}>{S.nav.about}</Button>
-          </Link> */}
-          <NavMenu />
+          <div className="absolute right-20 flex gap-4 items-center justify-end">
+            <ProductSearch />
+            <Link href={'/login'}>
+              <Button>{S.nav.login}</Button>
+            </Link>
+          </div>
         </div>
         <div className={`min-w-full p-4`}>{children}</div>
         <Footer />
@@ -62,8 +58,6 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
           {children}
         </div>
       </div>
-
-      {/* <ChatBox /> */}
     </div>
   );
 }
