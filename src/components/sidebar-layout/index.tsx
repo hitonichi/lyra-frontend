@@ -11,6 +11,7 @@ import PageTitle from './pageTitle';
 import { Footer } from './footer';
 import ProductSearch from './productSearch';
 import Cart from './cart';
+import PromotionBanner from './promotionBanner';
 
 const S = STRINGS.homepage;
 
@@ -20,6 +21,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
   if (!session) {
     return (
       <div className="min-w-full min-h-[100vh] relative">
+        <PromotionBanner />
         <div
           className={`min-h-[var(--navbar-height)] sticky border top-0 flex flex-row justify-center gap-4 items-center bg-white px-10 py-3`}
         >

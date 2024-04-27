@@ -10,6 +10,10 @@ const STRINGS = {
       about: 'About us',
       login: 'Log in',
     },
+    promotion: {
+      title: 'Get a free Free+True Skincare Bright Side ($25 value) with orders $125+.',
+      callToAction: 'Start now!',
+    },
   },
   login: {
     title: 'Lyra',
