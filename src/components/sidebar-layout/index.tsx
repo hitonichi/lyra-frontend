@@ -39,7 +39,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
             </Link>
           </div>
         </div>
-        <div className={`min-w-full p-4`}>{children}</div>
+        <div className={`min-w-full`}>{children}</div>
         <Footer />
       </div>
     );
