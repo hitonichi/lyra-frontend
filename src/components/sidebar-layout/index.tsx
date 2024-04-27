@@ -10,6 +10,7 @@ import NavMenu from '../nav-menu';
 import PageTitle from './pageTitle';
 import { Footer } from './footer';
 import ProductSearch from './productSearch';
+import Cart from './cart';
 
 const S = STRINGS.homepage;
 
@@ -30,6 +31,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
 
           <div className="absolute right-20 flex gap-4 items-center justify-end">
             <ProductSearch />
+            <Cart />
             <Link href={'/login'}>
               <Button>{S.nav.login}</Button>
             </Link>
