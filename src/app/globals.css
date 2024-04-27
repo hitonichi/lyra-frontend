@@ -11,7 +11,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     /* --primary: 341 66% 45%; */
-    --primary: #af4f82;
+    --primary: #704264;
     --primary-foreground: #f7e8f2;
     /* --primary-foreground: 346 57% 91%; */
     --secondary: #42704e;
@@ -26,7 +26,7 @@
     --destructive-foreground: 0 0% 98%;
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
-    --ring: #af4f82;
+    --ring: #704264;
     --radius: 0.5rem;
 
     /* --background: 0 0% 100%;
@@ -59,7 +59,7 @@
 
     --radius: 0.5rem; */
 
-    --navbar-height: 64px;
+    --navbar-height: 84px;
   }
 
   .dark {
