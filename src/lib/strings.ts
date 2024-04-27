@@ -1,3 +1,5 @@
+import { Medal, ShieldCheck, Truck } from 'lucide-react';
+
 const STRINGS = {
   appName: 'Lyra',
   userSessionCard: {
@@ -19,6 +21,23 @@ const STRINGS = {
       subTitle: 'Discover Our Newest Collection Today.',
       callToAction: 'View Collection',
     },
+    features: [
+      {
+        title: 'Free Shipping',
+        subTitle: "Upgrade your style today and get FREE shipping on all orders! Don't miss out.",
+        icon: Truck,
+      },
+      {
+        title: 'Satisfaction Guarantee',
+        subTitle: 'Shop confidently with our Satisfaction Guarantee: Love it or get a refund.',
+        icon: Medal,
+      },
+      {
+        title: 'Secure Payment',
+        subTitle: 'Your security is our priority. Your payments are secure with us.',
+        icon: ShieldCheck,
+      },
+    ],
   },
   login: {
     title: 'Lyra',
