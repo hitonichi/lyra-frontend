@@ -38,6 +38,11 @@ const STRINGS = {
         icon: ShieldCheck,
       },
     ],
+    featured: {
+      title: 'Browse Our Fashion Paradise!',
+      subTitle: 'Step into a world of style and explore our diverse collection of clothing categories.',
+      callToAction: 'Start Browsing',
+    },
   },
   login: {
     title: 'Lyra',
