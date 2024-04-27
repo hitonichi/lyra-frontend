@@ -10,41 +10,233 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '../ui/navigation-menu';
-import { cn } from '@/lib/utils';
+import { cn, navTitleToSearchParam } from '@/lib/utils';
 import React from 'react';
+import { Separator } from '../ui/separator';
 
-const components: { title: string; href: string; description: string }[] = [
+interface MenuLink {
+  title: string;
+  href?: string;
+  description?: string;
+}
+
+const components: (MenuLink & { subLinks?: MenuLink[] })[] = [
   {
-    title: 'Alert Dialog',
-    href: '/docs/primitives/alert-dialog',
-    description: 'A modal dialog that interrupts the user with important content and expects a response.',
+    title: 'Skin',
+    href: '/listing?category=skin',
+    subLinks: [
+      {
+        title: 'Cleanser',
+        href: '/listing?category=cleanser',
+      },
+      {
+        title: 'Toner',
+        href: '/listing?category=toner',
+      },
+      {
+        title: 'Serum',
+        href: '/listing?category=serum',
+      },
+      {
+        title: 'Eyes',
+        href: '/listing?category=eyes',
+      },
+      {
+        title: 'Lips',
+        href: '/listing?category=lips',
+      },
+    ],
   },
   {
-    title: 'Hover Card',
-    href: '/docs/primitives/hover-card',
-    description: 'For sighted users to preview content available behind a link.',
+    title: 'Makeup',
+    href: '/listing?category=makeup',
   },
   {
-    title: 'Progress',
-    href: '/docs/primitives/progress',
-    description:
-      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
+    title: 'Body',
+    href: '/listing?category=body',
   },
   {
-    title: 'Scroll-area',
-    href: '/docs/primitives/scroll-area',
-    description: 'Visually or semantically separates content.',
+    title: 'Hair',
+    href: '/listing?category=hair',
+    subLinks: [
+      {
+        title: 'Cleanser',
+        href: '/listing?category=cleanser',
+      },
+      {
+        title: 'Toner',
+        href: '/listing?category=toner',
+      },
+      {
+        title: 'Serum',
+        href: '/listing?category=serum',
+      },
+      {
+        title: 'Eyes',
+        href: '/listing?category=eyes',
+      },
+      {
+        title: 'Lips',
+        href: '/listing?category=lips',
+      },
+    ],
+  },
+  // {
+  //   title: 'Tooltip',
+  //   href: '/docs/primitives/tooltip',
+  //   description:
+  //     'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+  // },
+];
+
+const ROUTE_PATH = '/listing';
+
+const makeups: (MenuLink & { subLinks?: MenuLink[] })[] = [
+  // {
+  //   title: 'All Makeups',
+  //   href: '/listing?category=makeup',
+  // },
+  {
+    title: 'Eye',
+    subLinks: [
+      {
+        title: 'Eye palletes',
+      },
+      {
+        title: 'Mascara',
+      },
+      {
+        title: 'Eyeliner',
+      },
+      {
+        title: 'Eyebrow',
+      },
+    ],
   },
   {
-    title: 'Tabs',
-    href: '/docs/primitives/tabs',
-    description: 'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+    title: 'Lip',
+    subLinks: [
+      {
+        title: 'Lip Gloss',
+      },
+      {
+        title: 'Lipstick',
+      },
+      {
+        title: 'Lip Oil',
+      },
+    ],
   },
   {
-    title: 'Tooltip',
-    href: '/docs/primitives/tooltip',
-    description:
-      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+    title: 'Cheek',
+    subLinks: [
+      {
+        title: 'Blush',
+      },
+      {
+        title: 'Bronzer',
+      },
+      {
+        title: 'Highlighter',
+      },
+      {
+        title: 'Contour',
+      },
+      {
+        title: 'Cheek Palettes',
+      },
+    ],
+  },
+];
+
+const skincares: (MenuLink & { subLinks?: MenuLink[] })[] = [
+  // {
+  //   title: 'All Makeups',
+  //   href: '/listing?category=makeup',
+  // },
+  {
+    title: 'Moistrurizers',
+    subLinks: [
+      {
+        title: 'Night Creams',
+      },
+      {
+        title: 'Face Oils',
+      },
+      {
+        title: 'Mists & Essences',
+      },
+    ],
+  },
+  {
+    title: 'Cleansers',
+    subLinks: [
+      {
+        title: 'Face Wash & Cleansers',
+      },
+      {
+        title: 'Exfoliators',
+      },
+      {
+        title: 'Makeup Remover',
+      },
+      {
+        title: 'Face Wipes',
+      },
+      {
+        title: 'Toners',
+      },
+    ],
+  },
+  {
+    title: 'Treatments',
+    subLinks: [
+      {
+        title: 'Face Serums',
+      },
+      {
+        title: 'Blemish & Acne Treatments',
+      },
+      {
+        title: 'Facial Peels',
+      },
+    ],
+  },
+  {
+    title: 'Masks',
+    subLinks: [
+      {
+        title: 'Face Masks',
+      },
+      {
+        title: 'Sheet Masks',
+      },
+      {
+        title: 'Eye Masks',
+      },
+    ],
+  },
+  {
+    title: 'Eye Care',
+    subLinks: [
+      {
+        title: 'Eye Creams & Treatments',
+      },
+      {
+        title: 'Eye Masks',
+      },
+    ],
+  },
+  {
+    title: 'Sunscreen',
+    subLinks: [
+      {
+        title: 'Face Suncreen',
+      },
+      {
+        title: 'Body Sunscreen',
+      },
+    ],
   },
 ];
 
@@ -53,6 +245,12 @@ const NavMenu = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
+          <Link href="/" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Home</NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+        {/* ! Low priority */}
+        {/* <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
@@ -81,22 +279,17 @@ const NavMenu = () => {
               </ListItem>
             </ul>
           </NavigationMenuContent>
+        </NavigationMenuItem> */}
+        <LinkGroup title="Makeup" components={makeups} />
+        <LinkGroup title="Skincare" components={skincares} />
+        <NavigationMenuItem>
+          <Link href="/about" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>About</NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Components</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
-                <ListItem key={component.title} title={component.title} href={component.href}>
-                  {component.description}
-                </ListItem>
-              ))}
-            </ul>
-          </NavigationMenuContent>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Documentation</NavigationMenuLink>
+          <Link href="/contact" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>Contact Us</NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
       </NavigationMenuList>
@@ -104,21 +297,60 @@ const NavMenu = () => {
   );
 };
 
+const LinkGroup = ({ title, components }: { title: string; components: (MenuLink & { subLinks?: MenuLink[] })[] }) => (
+  <NavigationMenuItem>
+    <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
+    <NavigationMenuContent>
+      <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[700px] max-h-[480px] overflow-y-auto">
+        {components.map((component) => (
+          <ListItem
+            key={component.title}
+            title={component.title}
+            href={component.href ? component.href : `${ROUTE_PATH}?category=${navTitleToSearchParam(component.title)}`}
+          >
+            {/* {component.description} */}
+            {component.subLinks?.map(({ title, href }) => (
+              <Link
+                className="self-center"
+                href={href ? href : `${ROUTE_PATH}?category=${navTitleToSearchParam(title)}`}
+                legacyBehavior
+                passHref
+                key={href}
+              >
+                <NavigationMenuLink
+                  className={[
+                    // navigationMenuTriggerStyle(),
+                    'flex-1 !w-full !items-start !justify-start py-1 px-2 hover:underline',
+                  ].join(' ')}
+                >
+                  {title}
+                </NavigationMenuLink>
+              </Link>
+            ))}
+          </ListItem>
+        ))}
+      </ul>
+    </NavigationMenuContent>
+  </NavigationMenuItem>
+);
+
 const ListItem = React.forwardRef<React.ElementRef<'a'>, React.ComponentPropsWithoutRef<'a'>>(
   ({ className, title, children, ...props }, ref) => {
     return (
       <li>
-        <NavigationMenuLink asChild>
+        <NavigationMenuLink asChild className="!hover:bg-red-100">
           <a
             ref={ref}
             className={cn(
-              'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+              'block select-none space-y-3 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
               className,
             )}
             {...props}
           >
-            <div className="text-sm font-medium leading-none">{title}</div>
-            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p>
+            <div className="pl-2 text-xl font-bold leading-none">{title}</div>
+            <Separator />
+            <div className="flex flex-col gap-4 mt-4 w-full ">{children}</div>
+            {/* <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{children}</p> */}
           </a>
         </NavigationMenuLink>
       </li>
