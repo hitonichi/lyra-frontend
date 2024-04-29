@@ -45,9 +45,9 @@ export default function LoginForm() {
   const onSubmit = async (value: TLoginFormSchema) => {
     // console.log('Form data:', value);
     const res = await authenticate(value);
-    if (res == 'Invalid credentials.') {
-      setError('password', { type: 'manual', message: 'Credentials are invalid.' });
-      setError('email', { type: 'manual', message: 'Credentials are invalid.' });
+    if (res == 'Wrong credentials.') {
+      setError('password', { type: 'manual', message: 'Wrong email or password.' });
+      setError('email', { type: 'manual', message: 'Wrong email or password.' });
     }
     // console.log('login--- ', res);
   };
@@ -64,7 +64,7 @@ export default function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{S.email.label}</FormLabel>
+                <FormLabel className="font-semibold">{S.email.label}</FormLabel>
                 <FormControl>
                   <Input placeholder={S.email.placeholder} {...field} />
                 </FormControl>
@@ -77,7 +77,7 @@ export default function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{S.password.label}</FormLabel>
+                <FormLabel className="font-semibold">{S.password.label}</FormLabel>
                 <FormControl>
                   <Input type="password" placeholder={S.password.placeholder} {...field} />
                 </FormControl>

@@ -10,14 +10,14 @@ export async function authenticate(formData: TLoginFormSchema) {
     const res = await signIn('credentials', {
       email: formData.email,
       password: formData.password,
-      redirectTo: '/dashboard',
+      redirectTo: '/',
     });
     // console.log('res:', formData, res);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.';
+          return 'Wrong credentials.';
         default:
           return 'Authentication ERR: Unknown error.' + error;
       }
@@ -29,7 +29,9 @@ export async function authenticate(formData: TLoginFormSchema) {
 
 export async function googleAuthenticate(prevState: string | undefined, formData: FormData) {
   try {
-    await signIn('google');
+    await signIn('google', {
+      redirectTo: '/',
+    });
   } catch (error) {
     if (error instanceof AuthError) {
       return 'google log in failed';

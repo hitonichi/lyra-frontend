@@ -18,7 +18,7 @@ const Cart = () => {
             <ShoppingCart size={16} />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-80">
+        <PopoverContent className="w-80" align="end">
           <div className="flex flex-col w-full gap-2 max-h-[360px]">
             <Label className="text-xl font-bold">Cart</Label>
             <div className="flex grow flex-col overflow-y-auto gap-2">

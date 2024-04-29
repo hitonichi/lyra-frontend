@@ -51,20 +51,20 @@ const LinkGroup = ({ title, components }: { title: string; components: (MenuLink
     <NavigationMenuTrigger>{title}</NavigationMenuTrigger>
     <NavigationMenuContent>
       <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[700px] max-h-[480px] overflow-y-auto">
-        {components.map((component) => (
+        {components.map((component, idx) => (
           <ListItem
-            key={component.title}
+            key={component.title + idx}
             title={component.title}
             href={component.href ? component.href : `${ROUTE_PATH}?category=${navTitleToSearchParam(component.title)}`}
           >
             {/* {component.description} */}
-            {component.subLinks?.map(({ title, href }) => (
+            {component.subLinks?.map(({ title, href }, idx) => (
               <Link
                 className="self-center"
                 href={href ? href : `${ROUTE_PATH}?category=${navTitleToSearchParam(title)}`}
                 legacyBehavior
                 passHref
-                key={href}
+                key={href + idx}
               >
                 <NavigationMenuLink
                   className={[

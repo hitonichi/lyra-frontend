@@ -10,7 +10,7 @@ export default function UserSessionDisplay({ session }: { session: Session }) {
     <Popover>
       <PopoverTrigger asChild>
         <div className="flex flex-row items-center justify-between gap-3 cursor-pointer p-1 rounded-md">
-          <p>{session.user?.name}</p>
+          {/* <p>{session.user?.name}</p> */}
           <Avatar>
             <AvatarImage src="https://github.com/shadcn.png" alt={session.user?.name ?? ''} />
             <AvatarFallback>X</AvatarFallback>
