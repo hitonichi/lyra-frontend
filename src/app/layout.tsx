@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter, Open_Sans } from 'next/font/google';
 import './globals.css';
 import STRINGS from '@/lib/strings';
+import RQProvider from '@/contexts/RQProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
         <link rel="icon" href="/icon?png" type="image/png" sizes="32x32" />
       </head>
       {/* <body className={`${inter.className}`}>{children}</body> */}
-      <body className={`${open_sans.className} ${inter.className}`}>{children}</body>
+      <body className={`${open_sans.className} ${inter.className}`}>
+        <RQProvider>{children}</RQProvider>
+      </body>
     </html>
   );
 }

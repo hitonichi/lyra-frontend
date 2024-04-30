@@ -1,7 +1,7 @@
 'use server';
 
 import { TLoginFormSchema } from '@/components/login-form';
-import { signIn } from '../auth';
+import { auth, signIn } from '../auth';
 import { AuthError } from 'next-auth';
 
 export async function authenticate(formData: TLoginFormSchema) {
