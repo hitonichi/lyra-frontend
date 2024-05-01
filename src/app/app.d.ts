@@ -1,6 +1,7 @@
 declare global {
   export interface ProductData {
     _id: string;
+    overallRating: number;
     productName: string;
     description: string;
     price: number;

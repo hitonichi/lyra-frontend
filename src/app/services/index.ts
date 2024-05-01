@@ -57,7 +57,9 @@ interface ProductDetails {
   productId: string;
 }
 
-export async function getProductDetails({ productId }: ProductDetails): Promise<ProductData[] | ApiError> {
+export async function getProductDetails({
+  productId,
+}: ProductDetails): Promise<{ productDetail: ProductData } | ApiError> {
   const headers = await buildHeaders();
   const response: any = await fetch(`https://cosmetic-backend.vercel.app/product/${productId}`);
   console.log('[PRODUCTS] check res', response);
