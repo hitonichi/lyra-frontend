@@ -11,7 +11,6 @@ const ProductList = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  console.log('curr search params', new URLSearchParams(searchParams.toString()).toString());
 
   // Get a new searchParams string by merging the current
   // searchParams with a provided key/value pair
@@ -26,7 +25,7 @@ const ProductList = () => {
     [searchParams],
   );
 
-  const { data, error, isLoading } = useProducts();
+  const { data, error, isLoading } = useProducts(searchParams);
   const products = data as unknown as ProductData[];
 
   if (isLoading) return <h2>Loading</h2>;
@@ -34,8 +33,8 @@ const ProductList = () => {
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-start self-center align-middle justify-stretch">
-        <div className="col-span-full px-6 mb-2 flex justify-between items-center">
-          <Label>Showing 1-9 of 36 results</Label>
+        <div className="col-span-full px-6 mb-2 flex justify-end items-center">
+          {/* <Label>Showing 1-9 of 36 results</Label> */}
           <div>
             <Select
               onValueChange={(value) => {
@@ -47,9 +46,9 @@ const ProductList = () => {
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
-                  <SelectItem value="newest">Newest</SelectItem>
-                  <SelectItem value="asc">Price low to high</SelectItem>
-                  <SelectItem value="desc">Price high to low</SelectItem>
+                  <SelectItem value="latest">Newest</SelectItem>
+                  <SelectItem value="priceAsc">Price low to high</SelectItem>
+                  <SelectItem value="priceDesc">Price high to low</SelectItem>
                 </SelectGroup>
               </SelectContent>
             </Select>

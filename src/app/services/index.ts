@@ -33,9 +33,33 @@ const buildHeaders = async () => {
   return headers;
 };
 
-export async function getProducts(): Promise<ProductData[] | ApiError> {
+export async function getProducts(searchParams?: URLSearchParams): Promise<ProductData[] | ApiError> {
   const headers = await buildHeaders();
-  const response: any = await fetch('https://cosmetic-backend.vercel.app/product');
+  console.log('[GET PROD] params', searchParams, searchParams?.toString());
+  const response: any = await fetch(`https://cosmetic-backend.vercel.app/product?${searchParams?.toString()}`);
+  console.log('[PRODUCTS] check res', response);
+  if (!response.ok) {
+    const error = await response.json();
+    console.log('[RQ] res not ok', error);
+    throw new ApiError(response.status, error);
+  }
+  const resData = await response.json();
+  console.log('[PRODUCTS] check resData', resData);
+  if (resData.errors) {
+    console.log('[RQ] resData not ok');
+    throw new ApiError(response.status, resData.errors);
+  }
+  console.log('[RQ] looks ok');
+  return resData;
+}
+
+interface ProductDetails {
+  productId: string;
+}
+
+export async function getProductDetails({ productId }: ProductDetails): Promise<ProductData[] | ApiError> {
+  const headers = await buildHeaders();
+  const response: any = await fetch(`https://cosmetic-backend.vercel.app/product/${productId}`);
   console.log('[PRODUCTS] check res', response);
   if (!response.ok) {
     const error = await response.json();

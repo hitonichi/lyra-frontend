@@ -9,7 +9,7 @@ const ProductCard: FC<ProductData> = ({ _id, productName, price, quantity }) => 
 
   return (
     <div className="w-fit p-4 mx-auto rounded flex flex-col items-start justify-evenly hover:bg-primary-foreground">
-      <Link href={`/products/${''}`}>
+      <Link href={`/products/${_id}`}>
         <div className="w-[248px] h-[312px] overflow-hidden flex justify-center items-center bg-gray-50">
           <Image src="/mock-product-img.png" width={248} height={312} alt="product-image" />
         </div>
