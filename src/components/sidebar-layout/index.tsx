@@ -36,7 +36,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
           <Cart />
           {session ? (
             <>
-              <Button variant={'outline'} className="p-1.5 rounded-full h-fit">
+              <Button variant={'outline'} className="ml-2 p-2 rounded-full h-fit">
                 <Bell size={16} />
               </Button>
               <UserSessionDisplay session={session} />

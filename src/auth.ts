@@ -87,7 +87,7 @@ export const {
               password,
             };
 
-            const response = await fetch('http://localhost:3001/auth/logIn', {
+            const response = await fetch('https://cosmetic-backend.vercel.app/auth/logIn', {
               method: 'POST',
               headers,
               body: JSON.stringify(payload),

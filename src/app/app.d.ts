@@ -12,6 +12,10 @@ declare global {
   export interface ProductCategory {
     name: string;
   }
+
+  export interface Cart {
+    products: (ProductData & { quantity: number })[];
+  }
 }
 
 export {};

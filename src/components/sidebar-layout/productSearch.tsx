@@ -4,7 +4,7 @@ import { Search } from 'lucide-react';
 import { Input } from '../ui/input';
 
 const ProductSearch = () => {
-  return <Input startIcon={Search} />;
+  return <Input placeholder="Search for a product..." startIcon={Search} />;
 };
 
 export default ProductSearch;

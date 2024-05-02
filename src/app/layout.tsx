@@ -3,6 +3,7 @@ import { Inter, Open_Sans } from 'next/font/google';
 import './globals.css';
 import STRINGS from '@/lib/strings';
 import RQProvider from '@/contexts/RQProvider';
+import { CartProvider } from '@/contexts/CartContext';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -19,6 +20,29 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cart: Cart = {
+    products: [
+      {
+        _id: '1',
+        overallRating: 4,
+        productName: 'Product 1',
+        description: 'Product 1 description',
+        price: 100,
+        quantity: 1,
+        category: [{ name: 'Category 1' }],
+      },
+      {
+        _id: '2',
+        overallRating: 5,
+        productName: 'Product 2',
+        description: 'Product 2 description',
+        price: 200,
+        quantity: 2,
+        category: [{ name: 'Category 2' }],
+      },
+    ],
+  };
+
   return (
     <html lang="en">
       <head>
@@ -28,7 +52,9 @@ export default function RootLayout({
       </head>
       {/* <body className={`${inter.className}`}>{children}</body> */}
       <body className={`${open_sans.className} ${inter.className}`}>
-        <RQProvider>{children}</RQProvider>
+        <RQProvider>
+          <CartProvider cart={cart}>{children}</CartProvider>
+        </RQProvider>
       </body>
     </html>
   );
