@@ -1,4 +1,8 @@
-class ApiResponse<T> {
+import { auth } from '@/auth';
+
+export const BE_ENDPOINT = process.env.BE_ENDPOINT || 'https://cosmetic-backend.vercel.app';
+
+export class ApiResponse<T> {
   public status: number;
   public data: T;
   public info?: T;
@@ -10,7 +14,7 @@ class ApiResponse<T> {
   }
 }
 
-class ApiError extends Error {
+export class ApiError extends Error {
   public status: number;
   public info: any;
 
@@ -21,20 +25,21 @@ class ApiError extends Error {
   }
 }
 
-type ApiHeaders = {
+export type ApiHeaders = {
   Authorization?: string | undefined;
 };
 
-const buildHeaders = async () => {
+export const buildHeaders = async () => {
   const headers: ApiHeaders = {};
-  // const session = await auth();
-  // headers['Authorization'] = `Bearer ${session?.user?.accessToken}`;
+  const session = await auth();
+  console.log('GETTING SESSION', session);
+  headers['Authorization'] = `Bearer ${session?.user?.access_token}`;
 
   return headers;
 };
 
 export async function getProducts(searchParams?: URLSearchParams): Promise<ProductData[] | ApiError> {
-  const headers = await buildHeaders();
+  // const headers = await buildHeaders();
   console.log('[GET PROD] params', searchParams, searchParams?.toString());
   const response: any = await fetch(`https://cosmetic-backend.vercel.app/product?${searchParams?.toString()}`);
   console.log('[PRODUCTS] check res', response);
@@ -60,7 +65,7 @@ interface ProductDetails {
 export async function getProductDetails({
   productId,
 }: ProductDetails): Promise<{ productDetail: ProductData } | ApiError> {
-  const headers = await buildHeaders();
+  // const headers = await buildHeaders();
   const response: any = await fetch(`https://cosmetic-backend.vercel.app/product/${productId}`);
   console.log('[PRODUCTS] check res', response);
   if (!response.ok) {
@@ -93,3 +98,12 @@ export async function getTodos(): Promise<ApiResponse<any> | ApiError> {
   console.log('[RQ] looks ok');
   return resData;
 }
+
+export const getCart = async () => {
+  const headers = await buildHeaders();
+  console.log('[GET CART] check headers', headers);
+  const response = await fetch('https://cosmetic-backend.vercel.app/cart', {
+    headers,
+  });
+  return response.json();
+};

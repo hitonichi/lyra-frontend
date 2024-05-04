@@ -1,7 +1,12 @@
 import type { NextAuthConfig } from 'next-auth';
 
 const isOnProtectedRoute = (route: string): boolean => {
-  return route.startsWith('/dashboard') || route.startsWith('/settings') || route.startsWith('/profile');
+  return (
+    route.startsWith('/dashboard') ||
+    route.startsWith('/settings') ||
+    route.startsWith('/profile') ||
+    route.startsWith('/cart ')
+  );
 };
 
 export const authConfig = {

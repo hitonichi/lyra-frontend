@@ -4,6 +4,8 @@ import './globals.css';
 import STRINGS from '@/lib/strings';
 import RQProvider from '@/contexts/RQProvider';
 import { CartProvider } from '@/contexts/CartContext';
+import { getCart } from './services/cart';
+import { auth } from '@/auth';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -15,12 +17,12 @@ export const metadata: Metadata = {
   description: 'a place to manage them all',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cart: Cart = {
+  let cart: Cart = {
     products: [
       {
         _id: '1',
@@ -42,6 +44,11 @@ export default function RootLayout({
       },
     ],
   };
+  // const session = await auth();
+  // if (session) {
+  //   const res = await getCart();
+  //   cart.products = res;
+  // }
 
   return (
     <html lang="en">

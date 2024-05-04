@@ -16,7 +16,7 @@ const Cart = () => {
 
   return (
     <div>
-      <Popover>
+      <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
           <Button variant={'outline'} className="relative p-2 rounded-full h-fit" onClick={() => setOpen(!open)}>
             <ShoppingCart size={16} />
@@ -41,11 +41,13 @@ const Cart = () => {
                 </div>
               ))}
             </div>
+            {/* <PopoverTrigger asChild> */}
             <Link href={'/cart'} className="mt-6">
-              <Button variant={'default'} className="w-full">
+              <Button variant={'default'} className="w-full" onClick={() => setOpen(!open)}>
                 View and Checkout
               </Button>
             </Link>
+            {/* </PopoverTrigger> */}
           </div>
         </PopoverContent>
       </Popover>

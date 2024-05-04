@@ -148,17 +148,17 @@ export const {
       // const _user = token as User;
       // session.user = { ..._user, emailVerified: null };
       session.user = token as any;
-      // console.log('[SESSION] Check', session);
-      // console.log('--- token', token);
-      // console.log('--- user', user);
+      console.log('[SESSION] Check', session);
+      console.log('--- token', token);
+      console.log('--- user', user);
       return session;
     },
     async jwt({ token, user, trigger, session, account }) {
-      // console.log('[JWT] Check ');
-      // console.log('--- token', token);
-      // console.log('--- user', user);
-      // console.log('--- session', session);
-      // console.log('--- account', account);
+      console.log('[JWT] Check ');
+      console.log('--- token', token);
+      console.log('--- user', user);
+      console.log('--- session', session);
+      console.log('--- account', account);
       // if (user) {
       //   token.user = user;
       // }
@@ -166,8 +166,13 @@ export const {
       //   token = { ...token, user: session };
       //   return token;
       // }
-
+      console.log('[JWT] compare now vs iat', Date.now(), token.iat * 1000);
+      if (Date.now() > token.exp * 1000) {
+        console.log('[JWT] expired');
+        return null;
+      }
       return { ...token, ...user };
     },
   },
+  secret: process.env.NEXTAUTH_SECRET,
 });
