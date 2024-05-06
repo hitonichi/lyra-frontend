@@ -10,7 +10,7 @@ import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 
 export default function CartPage() {
-  const [cart] = useCart();
+  const [cart, setCart] = useCart();
   const { data, error } = useCartQuery();
 
   if (error) console.log('[ERR cart]: ', error);
@@ -20,6 +20,24 @@ export default function CartPage() {
   const subtotal =
     cart.products.length !== 0 ? cart.products.reduce((acc, product) => acc + product.price * product.quantity, 0) : 0;
   const SHIPPING_FEE = 3;
+
+  const updateQuantity = (productId: string, quantity: number) => {
+    const newCart: Cart = {
+      ...cart,
+      products: cart.products.map((product) => (product._id === productId ? { ...product, quantity } : product)),
+    };
+    setCart(newCart);
+  };
+
+  const removeFromCart = (productId: string) => {
+    if (confirm('Are you sure you want to remove this item from your cart?')) {
+      const newCart: Cart = {
+        ...cart,
+        products: cart.products.filter((product) => product._id !== productId),
+      };
+      setCart(newCart);
+    }
+  };
 
   return (
     <div className="w-full min-h-[100vh] ">
@@ -31,7 +49,14 @@ export default function CartPage() {
           <div className="flex flex-col ">
             {cart.products.length === 0 && <p>Your cart is empty</p>}
             {cart.products.length !== 0 &&
-              cart.products.map((product) => <CartEntry key={product._id} product={product} />)}
+              cart.products.map((product) => (
+                <CartEntry
+                  key={product._id}
+                  product={product}
+                  updateQuantity={updateQuantity}
+                  removeAction={removeFromCart}
+                />
+              ))}
           </div>
         </div>
         {cart.products.length !== 0 && (
@@ -47,12 +72,12 @@ export default function CartPage() {
                 <div className="flex flex-col justify-start items-end font-semibold">
                   <div>$ {subtotal}</div>
                   <div>$ {SHIPPING_FEE}</div>
-                  <div>$ {subtotal + SHIPPING_FEE}</div>
+                  <div>$ {subtotal * 0.08}</div>
                 </div>
                 <Separator className="col-span-2 my-4" />
                 <Label className="font-semibold">Total</Label>
                 <div className="flex flex-col justify-start items-end font-semibold">
-                  <Label className="font-semibold">$ Total</Label>
+                  <Label className="font-semibold">$ {subtotal * 1.08 + SHIPPING_FEE}</Label>
                 </div>
                 <Link href={'/checkout'} className="col-span-2 w-full mt-4">
                   <Button className="w-full">Checkout</Button>

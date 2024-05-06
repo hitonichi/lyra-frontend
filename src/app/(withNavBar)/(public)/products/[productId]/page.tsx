@@ -20,7 +20,9 @@ export default function ProductPage({ params }: { params: { productId: string } 
   if (isLoading) return <h2>Loading</h2>;
   if (error) return <h2>{error.message}</h2>;
 
+  if (!data || !('productDetail' in data)) return <h2>No data</h2>;
   const productDetails = data?.productDetail;
+
   console.log('Product detail:', data, productDetails);
   return (
     <div className="w-full min-h-[100vh] px-20 py-10">
@@ -137,9 +139,9 @@ const DescriptionAndReviews: FC<ProductData> = () => {
         <TabsContent value="account">
           <Label className="text-lg font-bold">Details</Label>
           <p className="mt-6 text-gray-500">
-            Elevate your everyday style with our Men's Black T-Shirts, the ultimate wardrobe essential for modern men.
-            Crafted with meticulous attention to detail and designed for comfort, these versatile black tees are a
-            must-have addition to your collection. The classic black color never goes out of style. Whether you're
+            Elevate your everyday style with our Men&rsquo;s Black T-Shirts, the ultimate wardrobe essential for modern
+            men. Crafted with meticulous attention to detail and designed for comfort, these versatile black tees are a
+            must-have addition to your collection. The classic black color never goes out of style. Whether you&rsquo;re
             dressing up for a special occasion or keeping it casual, these black t-shirts are the perfect choice,
             effortlessly complementing any outfit.
           </p>
