@@ -2,21 +2,28 @@ import Image from 'next/image';
 import { Label } from '../ui/label';
 import Link from 'next/link';
 import { Badge } from '../ui/badge';
+import { FC } from 'react';
 
-const ProductCard = () => {
+const ProductCard: FC<ProductData> = ({ _id, productName, price, quantity }) => {
+  const isInStock = quantity != 0;
+
   return (
-    <Link href={'/products'}>
-      <div className="p-4 rounded flex flex-col items-start justify-start hover:bg-primary-foreground">
-        <div className="w-[248px] h-[312px] overflow-hidden flex justify-center items-center bg-gray-50">
+    <div className="w-fit p-4 mx-auto rounded flex flex-col items-start justify-evenly hover:bg-primary-foreground">
+      <Link href={`/products/${_id}`}>
+        <div className="max-w-[248px] max-h-[312px] overflow-hidden flex justify-center items-center bg-gray-50">
           <Image src="/mock-product-img.png" width={248} height={312} alt="product-image" />
         </div>
-        <Label className="pt-6 pb-3">Product name</Label>
-        <div className="w-full flex justify-between items-center">
-          <Badge variant={'outline'}>IN STOCK</Badge>
-          <Label className="text-lg font-bold">$ 27.00</Label>
+        <div className="pt-4 pb-2">
+          <Label className=" line-clamp-1 max-w-[248px]">{productName}</Label>
         </div>
-      </div>
-    </Link>
+        <div className="w-full flex justify-between items-center">
+          <Badge variant={isInStock ? 'outline' : 'default'} className={!isInStock ? 'bg-accent text-black' : ''}>
+            {isInStock ? 'IN STOCK' : 'SOLD OUT'}
+          </Badge>
+          <Label className="text-lg font-bold">$ {price}</Label>
+        </div>
+      </Link>
+    </div>
   );
 };
 

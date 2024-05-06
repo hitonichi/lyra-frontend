@@ -4,6 +4,7 @@ export type User = {
   email: string;
   password: string;
   accessToken: string;
+  access_token: string;
   refreshToken: string;
   tags?: string[];
   roadmaps?: string[];

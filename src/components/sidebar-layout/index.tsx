@@ -26,8 +26,10 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
         className={`min-h-[var(--navbar-height)] sticky backdrop-blur-sm z-10 border top-0 flex flex-row justify-center gap-4 items-center bg-white/60 px-10 py-3`}
       >
         <div className="absolute left-20 flex gap-2 items-center justify-start">
-          <Logo type="black" size={40} />
-          <p className="mr-10 text-black text-2xl font-bold ">{S.title}</p>
+          <Link href={'/'} className="flex gap-2 items-center justify-start">
+            <Logo type="black" size={40} />
+            <p className="mr-10 text-black text-2xl font-bold ">{S.title}</p>
+          </Link>
           <NavMenu />
         </div>
 
@@ -36,7 +38,7 @@ export default async function SideBarLayout({ children }: { children?: ReactNode
           <Cart />
           {session ? (
             <>
-              <Button variant={'outline'} className="p-1.5 rounded-full h-fit">
+              <Button variant={'outline'} className="ml-2 p-2 rounded-full h-fit">
                 <Bell size={16} />
               </Button>
               <UserSessionDisplay session={session} />
