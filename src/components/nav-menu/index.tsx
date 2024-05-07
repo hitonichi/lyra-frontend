@@ -64,7 +64,7 @@ const LinkGroup = ({ title, components }: { title: string; components: (MenuLink
                 href={href ? href : `${ROUTE_PATH}?category=${navTitleToSearchParam(title)}`}
                 legacyBehavior
                 passHref
-                key={href + idx}
+                key={href ? href + idx : idx}
               >
                 <NavigationMenuLink
                   className={[

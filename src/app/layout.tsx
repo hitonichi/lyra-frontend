@@ -22,7 +22,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  let cart: Cart = {
+  const cart: Cart = {
     products: [
       {
         _id: '1',

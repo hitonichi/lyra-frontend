@@ -166,8 +166,8 @@ export const {
       //   token = { ...token, user: session };
       //   return token;
       // }
-      console.log('[JWT] compare now vs iat', Date.now(), token.iat * 1000);
-      if (Date.now() > token.exp * 1000) {
+      // console.log('[JWT] compare now vs iat', Date.now(), token.iat * 1000);
+      if (token.exp && Date.now() > token.exp * 1000) {
         console.log('[JWT] expired');
         return null;
       }

@@ -116,27 +116,76 @@ const OverviewSection: FC<ProductData> = ({ productName, price, quantity, overal
   );
 };
 
+interface Review {
+  reviewer: string;
+  content: string;
+  rating: number;
+  isExternal?: boolean;
+  source?: string;
+}
+const REVIEWS: Review[] = [
+  {
+    reviewer: 'John Doe',
+    content: 'This is a great product',
+    rating: 4.5,
+  },
+  {
+    reviewer: 'Alice Stepth',
+    content: 'This is a decent product',
+    rating: 3,
+    isExternal: true,
+    source: 'amazon.com',
+  },
+  {
+    reviewer: 'Ariana Grona',
+    content: 'I am a dermotologist, I highly recommend this product',
+    rating: 5,
+    isExternal: true,
+    source: 'aliexpress.com',
+  },
+  {
+    reviewer: 'John Doe',
+    content: 'This is a great product',
+    rating: 4.5,
+  },
+  {
+    reviewer: 'John Doe',
+    content: 'This is a great product',
+    rating: 4.5,
+  },
+  {
+    reviewer: 'John Doe',
+    content: 'This is a great product',
+    rating: 4.5,
+  },
+  {
+    reviewer: 'John Doe',
+    content: 'This is a great product',
+    rating: 4.5,
+  },
+];
+
 const DescriptionAndReviews: FC<ProductData> = () => {
   return (
-    <Tabs defaultValue="account" className="mt-6 w-full grid grid-cols-12 gap-6">
+    <Tabs defaultValue="details" className="mt-6 w-full grid grid-cols-12 gap-6">
       <TabsList className="col-span-3 !flex flex-col justify-start h-full min-h-[80vh] bg-transparent">
         <TabsTrigger
           className="w-full flex items-center py-3 data-[state=active]:bg-accent justify-start"
-          value="account"
+          value="details"
         >
           <Info size={18} className="mr-2" />
           <Label className="font-semibold">Details</Label>
         </TabsTrigger>
         <TabsTrigger
           className="w-full flex items-center py-3 data-[state=active]:bg-accent justify-start"
-          value="password"
+          value="reviews"
         >
           <Star size={18} className="mr-2" />
           <Label className="font-semibold">Reviews</Label>
         </TabsTrigger>
       </TabsList>
-      <div className="col-span-9">
-        <TabsContent value="account">
+      <div className="col-span-9 h-[80vh] overflow-y-auto">
+        <TabsContent value="details">
           <Label className="text-lg font-bold">Details</Label>
           <p className="mt-6 text-gray-500">
             Elevate your everyday style with our Men&rsquo;s Black T-Shirts, the ultimate wardrobe essential for modern
@@ -152,10 +201,43 @@ const DescriptionAndReviews: FC<ProductData> = () => {
             <li> - Tailored Fit</li>
           </ul>
         </TabsContent>
-        <TabsContent value="password">
-          <Label className="text-lg font-bold">Reviews</Label>
+        <TabsContent value="reviews">
+          <div>
+            <Label className="text-lg font-bold">Reviews</Label>
+            <div className="flex gap-2 items-end">
+              <Label className="text-3xl font-bold py-0 align-stretch">4.2</Label>
+              <Label className="text-gray-500 align-stretch pb-1">- 52 reviews</Label>
+            </div>
+            <div className="w-full flex flex-col gap-4 mt-4">
+              {REVIEWS.map((review, id) => (
+                <ReviewCard key={id} {...review} />
+              ))}
+            </div>
+          </div>
         </TabsContent>
       </div>
     </Tabs>
+  );
+};
+
+const ReviewCard: FC<Review> = ({ reviewer, content, rating, isExternal = false, source }) => {
+  const externalCardStyle = isExternal ? 'bg-secondary-foreground border-secondary shadow' : '';
+
+  return (
+    <div className={['w-full flex flex-col gap-2 border rounded p-4', externalCardStyle].join(' ')}>
+      <div className="w-full flex justify-between">
+        <Label className="text-lg font-semibold">{reviewer}</Label>
+        <div className="flex gap-2 items-center">
+          <Label className="text-lg text-gray-500">{rating}</Label>
+          <Star size={20} />
+        </div>
+      </div>
+      <p className="text-gray-500">{content}</p>
+      {isExternal && source && (
+        <div className="flex justify-end italic">
+          <Label className="text-gray-500">Source: {source}</Label>
+        </div>
+      )}
+    </div>
   );
 };

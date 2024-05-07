@@ -12,10 +12,12 @@ const NewArrival = () => {
       <div className="flex flex-col gap-2 justify-start items-start">
         <Label className="text-2xl font-bold">{S.title}</Label>
         <span>{S.subTitle}</span>
-        <Button className="mt-8">
-          <Link href="/products">{S.callToAction}</Link>
-          <ChevronRight size={24} />
-        </Button>
+        <Link href="/products">
+          <Button className="mt-8">
+            {S.callToAction}
+            <ChevronRight size={24} />
+          </Button>
+        </Link>
         <Image
           className="absolute bottom-0 right-40"
           width={360}

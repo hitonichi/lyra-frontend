@@ -7,6 +7,7 @@ declare global {
     price: number;
     quantity: number;
     category: ProductCategory[];
+    images?: string[];
   }
 
   export interface ProductCategory {

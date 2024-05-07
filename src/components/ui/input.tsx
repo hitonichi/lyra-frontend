@@ -22,7 +22,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(({ className, type,
         ref={ref}
         {...props}
       />
-      {startIcon && (
+      {StartIcon && (
         <StartIcon
           size={18}
           className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground peer-focus:text-black"
